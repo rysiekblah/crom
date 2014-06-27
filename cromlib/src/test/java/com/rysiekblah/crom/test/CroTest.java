@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.google.common.collect.Lists;
 import com.rysiekblah.crom.Cro;
+import com.rysiekblah.crom.test.pojo.Car;
 import com.rysiekblah.crom.test.pojo.Employee;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
 
@@ -34,6 +35,22 @@ public class CroTest {
         System.out.println(employee.getName() + ", " + employee.getSalary());
         assertEquals("Tomek", employee.getName());
         assertEquals(12, employee.getSalary().intValue());
+    }
+
+    @Test
+    public void testCarTable() {
+
+        Cursor cursor = CursorBuilder.create(
+                new String[] {"make", "model", "year", "milage"},
+                new Object[] {"Toyota", "Yaris", 2000, 150000});
+        cursor.moveToFirst();
+        Cro cro = new Cro(Car.class);
+        Car car = (Car) cro.populate(cursor);
+        assertEquals("Toyota", car.getMake());
+        assertEquals("Yaris", car.getModel());
+        assertEquals(2000, car.getYear().intValue());
+        assertEquals(150000, car.getMilage().intValue());
+
     }
 
 }
