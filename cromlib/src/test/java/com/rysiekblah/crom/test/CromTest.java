@@ -3,7 +3,6 @@ package com.rysiekblah.crom.test;
 import android.database.Cursor;
 
 import com.google.common.collect.Lists;
-import com.rysiekblah.crom.CroBulk;
 import com.rysiekblah.crom.Crom;
 import com.rysiekblah.crom.test.pojo.Employee;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
