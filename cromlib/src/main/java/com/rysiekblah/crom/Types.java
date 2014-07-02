@@ -9,4 +9,9 @@ public interface Types {
     static final int COLUMN_TYPE_INTEGER = 2;
     static final int COLUMN_TYPE_NULL = 3;
     static final int COLUMN_TYPE_STRING = 4;
+
+    static final int COLUMN_TYPE_SHORT = 5;
+    static final int COLUMN_TYPE_SHORT_OBJ = 6;
+
+    static final int TYPE_UNKNOWN = -1;
 }

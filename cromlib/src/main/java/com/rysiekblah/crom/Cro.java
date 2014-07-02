@@ -9,6 +9,7 @@ import com.google.common.collect.Maps;
 import com.rysiekblah.crom.annotation.Column;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Map;
 public class Cro<T> {
 
     private Class<T> clazz;
-    private Map<Field, Pair<String, Integer>> fileds = Maps.newHashMap();
+    private Map<Field, FieldDescriptor> fileds = Maps.newHashMap();
 
     public Cro(Class<T> clazz) {
         this.clazz = clazz;
@@ -37,10 +38,10 @@ public class Cro<T> {
         try {
             T obj = clazz.newInstance();
 
-            for (Map.Entry<Field, Pair<String, Integer>> fieldStringEntry : fileds.entrySet()) {
+            for (Map.Entry<Field, FieldDescriptor> fieldStringEntry : fileds.entrySet()) {
                 Field field = fieldStringEntry.getKey();
                 field.setAccessible(true);
-                field.set(obj,assignValue(cursor, fieldStringEntry.getValue()));
+                field.set(obj, assignValue(cursor, fieldStringEntry.getValue()));
             }
 
             return obj;
@@ -52,30 +53,52 @@ public class Cro<T> {
 
     }
 
-    private Object assignValue(Cursor cursor, Pair<String, Integer> pair) throws CromException {
-        int index = cursor.getColumnIndex(pair.first);
+    private Object assignValue(Cursor cursor, FieldDescriptor fieldDescriptor) throws CromException {
+        int index = cursor.getColumnIndex(fieldDescriptor.getName());
         if (index == -1) {
-            throw new CromException("Column not exists.");
+            throw new CromException("Column not exists. " + fieldDescriptor.getName());
         }
 
-        switch (pair.second) {
-            case Types.COLUMN_TYPE_INTEGER:
-                int value = cursor.getInt(index);
-                return new Integer(value);
-            case Types.COLUMN_TYPE_STRING:
-                return new String(cursor.getString(index));
-        }
-        return null;
+        return fieldDescriptor.getFieldAbstract().getData(cursor, index);
+
+//        switch (fieldDescriptor.getType()) {
+//            case Types.COLUMN_TYPE_INTEGER:
+//                int value = cursor.getInt(index);
+//                return new Integer(value);
+//            case Types.COLUMN_TYPE_STRING:
+//                return new String(cursor.getString(index));
+//        }
+//        return null;
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    private Pair<String, Integer> obtainColumnName(Field field) {
+    private FieldDescriptor obtainColumnName(Field field) {
         Column column = field.getAnnotation(Column.class);
+        typing(field);
+        return new FieldDescriptor(field, column);
+//
+//        if(column.name().isEmpty()){
+//            return new FieldDescriptor(field.getName(), column.type());
+//        }
+//        return new FieldDescriptor(column.name(), column.type());
+    }
 
-        if(column.name().isEmpty()){
-            return Pair.create(field.getName(), column.type());
+    private void typing(Field field) {
+        System.out.println("Type: " + field.getType() + ", isString: " + field.getType().isAssignableFrom(String.class));
+
+        Class<?> clazz = field.getType();
+        if (clazz.isAssignableFrom(String.class)) {
+            System.out.println("String");
+        } else if (clazz.isAssignableFrom(Integer.class)) {
+            System.out.println("Integer");
+        } else if (clazz.isAssignableFrom(int.class)) {
+            System.out.println("int");
+        } else {
+            System.out.println("type unknown");
         }
-        return Pair.create(column.name(), column.type());
+
+
+
     }
 
 }

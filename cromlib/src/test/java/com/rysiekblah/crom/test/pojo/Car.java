@@ -15,7 +15,7 @@ public class Car {
     private String model;
 
     @Column(type = Types.COLUMN_TYPE_INTEGER)
-    private Integer year;
+    private int year;
 
     @Column(type = Types.COLUMN_TYPE_INTEGER)
     private Integer milage;
