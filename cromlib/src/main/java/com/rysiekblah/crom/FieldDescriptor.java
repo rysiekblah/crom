@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 public class FieldDescriptor {
 
     private String name;
-    private int type;
+    private Class<?> type;
     private FieldAbstract fieldAbstract;
 
     public FieldDescriptor(Field field, Column column) {
@@ -21,7 +21,7 @@ public class FieldDescriptor {
         } else {
             this.name = column.name();
         }
-
+        type = field.getType();
         fieldAbstract = createFieldAbstract(field.getType());
     }
 
@@ -29,7 +29,7 @@ public class FieldDescriptor {
         return name;
     }
 
-    public int getType() {
+    public Class<?> getType() {
         return type;
     }
 
@@ -37,6 +37,7 @@ public class FieldDescriptor {
         return fieldAbstract;
     }
 
+    // TODO: do rework
     private FieldAbstract createFieldAbstract(Class<?> clazz) {
         if (clazz.isAssignableFrom(String.class)) {
             return new FieldAbstract<String>() {
@@ -57,6 +58,35 @@ public class FieldDescriptor {
                 @Override
                 public Integer getData(Cursor cursor, int index) {
                     return cursor.getInt(index);
+                }
+            };
+        } else if (clazz.isAssignableFrom(boolean.class)) {
+            return new FieldAbstract<Boolean>() {
+                @Override
+                public Boolean getData(Cursor cursor, int index) {
+                    String bl = cursor.getString(index);
+                    return bl.equals("true") ? true : false;
+                }
+            };
+        } else if (clazz.isAssignableFrom(Boolean.class)) {
+            return new FieldAbstract<Boolean>() {
+                @Override
+                public Boolean getData(Cursor cursor, int index) {
+                    return cursor.getString(index).equals("true") ? true : false;
+                }
+            };
+        } else if (clazz.isAssignableFrom(short.class)) {
+            return new FieldAbstract<Short>() {
+                @Override
+                public Short getData(Cursor cursor, int index) {
+                    return cursor.getShort(index);
+                }
+            };
+        } else if (clazz.isAssignableFrom(Short.class)) {
+            return new FieldAbstract<Short>() {
+                @Override
+                public Short getData(Cursor cursor, int index) {
+                    return cursor.getShort(index);
                 }
             };
         }

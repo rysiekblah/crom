@@ -58,7 +58,9 @@ public class Cro<T> {
         if (index == -1) {
             throw new CromException("Column not exists. " + fieldDescriptor.getName());
         }
-
+        if (fieldDescriptor.getFieldAbstract() == null) {
+            throw new CromException("Type not supported: " + fieldDescriptor.getType());
+        }
         return fieldDescriptor.getFieldAbstract().getData(cursor, index);
 
 //        switch (fieldDescriptor.getType()) {

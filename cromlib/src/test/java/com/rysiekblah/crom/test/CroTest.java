@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.rysiekblah.crom.Cro;
 import com.rysiekblah.crom.test.pojo.Car;
 import com.rysiekblah.crom.test.pojo.Employee;
+import com.rysiekblah.crom.test.pojo.MultiType;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
 
 import org.junit.Test;
@@ -15,6 +16,9 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by tomek on 6/21/14.
@@ -51,6 +55,25 @@ public class CroTest {
         assertEquals(2000, car.getYear().intValue());
         assertEquals(150000, car.getMilage().intValue());
 
+    }
+
+    @Test
+    public void testMultipleTypes() {
+        Cursor cursor = CursorBuilder.create(
+                new String[]{"shortObjData", "shortData", "intObjData", "intData", "boolObjData", "boolData"},
+                new Object[]{1, 2, 333, 444, true, false}
+        );
+        cursor.moveToFirst();
+        Cro cro = new Cro(MultiType.class);
+        MultiType multiType = (MultiType) cro.populate(cursor);
+
+        assertNotNull(multiType);
+        assertEquals(1, multiType.getShortObjData().intValue());
+        assertEquals(2, (int) multiType.getShortData());
+        assertEquals(333, multiType.getIntObjData().intValue());
+        assertEquals(444, multiType.getIntData());
+        assertTrue(multiType.getBoolObjData());
+        assertFalse(multiType.isBoolData());
     }
 
 }
