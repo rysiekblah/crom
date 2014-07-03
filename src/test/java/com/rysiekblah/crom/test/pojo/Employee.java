@@ -1,6 +1,5 @@
 package com.rysiekblah.crom.test.pojo;
 
-import com.rysiekblah.crom.Types;
 import com.rysiekblah.crom.annotation.Column;
 
 /**
@@ -8,9 +7,9 @@ import com.rysiekblah.crom.annotation.Column;
  */
 public class Employee {
 
-    @Column(type = Types.COLUMN_TYPE_STRING)
+    @Column
     private String name;
-    @Column(name="salaries", type = Types.COLUMN_TYPE_INTEGER)
+    @Column(name="salaries")
     private Integer salary;
 
     public Employee() {

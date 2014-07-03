@@ -30,6 +30,7 @@ public class Crom {
         return pojoList;
     }
 
+    @SuppressWarnings("unchecked")
     private <T> Cro<T> getCro(Class<T> clazz) {
         Cro<T> cro = (Cro<T>) cache.get(clazz);
         if (cro == null) {
