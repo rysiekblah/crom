@@ -9,7 +9,6 @@ import com.google.common.collect.Maps;
 import com.rysiekblah.crom.annotation.Column;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
