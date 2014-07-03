@@ -65,14 +65,14 @@ public class FieldDescriptor {
                 @Override
                 public Boolean getData(Cursor cursor, int index) {
                     String bl = cursor.getString(index);
-                    return bl.equals("true") ? true : false;
+                    return bl.equals("true");
                 }
             };
         } else if (clazz.isAssignableFrom(Boolean.class)) {
             return new FieldAbstract<Boolean>() {
                 @Override
                 public Boolean getData(Cursor cursor, int index) {
-                    return cursor.getString(index).equals("true") ? true : false;
+                    return cursor.getString(index).equals("true");
                 }
             };
         } else if (clazz.isAssignableFrom(short.class)) {
