@@ -9,11 +9,16 @@ import com.rysiekblah.crom.test.pojo.Employee;
 import com.rysiekblah.crom.test.pojo.MultiType;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.List;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
+
+import static org.fest.assertions.Assertions.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -60,8 +65,16 @@ public class CroTest {
     @Test
     public void testMultipleTypes() {
         Cursor cursor = CursorBuilder.create(
-                new String[]{"shortObjData", "shortData", "intObjData", "intData", "boolObjData", "boolData"},
-                new Object[]{1, 2, 333, 444, true, false}
+                new String[]{
+                        "shortObjData", "shortData", "intObjData", "intData", "boolObjData", "boolData",
+                        "doubleObjData", "doubleData", "floatObjData", "floatData", "longObjData", "longData",
+                        "stringObjData", "blobData"
+                },
+                new Object[]{
+                        1, 2, 333, 444, true, false,
+                        12.33, 33.12, 22.11, 11.22, 123, 321,
+                        "TESTDATA", new byte[] {1, 2, 'A', ' '}
+                }
         );
         cursor.moveToFirst();
         Cro cro = new Cro(MultiType.class);
@@ -74,6 +87,14 @@ public class CroTest {
         assertEquals(444, multiType.getIntData());
         assertTrue(multiType.getBoolObjData());
         assertFalse(multiType.isBoolData());
+        assertEquals(Double.valueOf(12.33), multiType.getDoubleObjData());
+        assertEquals(Double.valueOf(33.12), Double.valueOf(multiType.getDoubleData()));
+        assertEquals(Float.valueOf((float)22.11), multiType.getFloatObjData());
+        assertEquals(Float.valueOf((float)11.22), Float.valueOf(multiType.getFloatData()));
+        assertEquals(Long.valueOf(123), multiType.getLondObjData());
+        assertEquals(Long.valueOf(321), Long.valueOf(multiType.getLongData()));
+        assertEquals("TESTDATA", multiType.getStringObjData());
+        assertThat(multiType.getBlobData()).contains((byte)1, (byte)2, (byte)'A', (byte)' ');
     }
 
 }

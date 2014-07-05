@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.rysiekblah.crom.annotation.Column;
 
 import java.lang.reflect.Field;
+import java.nio.DoubleBuffer;
 
 /**
  * Created by tomek on 4/28/14.
@@ -87,6 +88,34 @@ public class FieldDescriptor {
                 @Override
                 public Short getData(Cursor cursor, int index) {
                     return cursor.getShort(index);
+                }
+            };
+        } else if (clazz.isAssignableFrom(byte[].class)) {
+            return new FieldAbstract<byte[]>() {
+                @Override
+                public byte[] getData(Cursor cursor, int index) {
+                    return cursor.getBlob(index);
+                }
+            };
+        } else if (clazz.isAssignableFrom(long.class) || clazz.isAssignableFrom(Long.class)) {
+            return new FieldAbstract<Long>() {
+                @Override
+                public Long getData(Cursor cursor, int index) {
+                    return cursor.getLong(index);
+                }
+            };
+        } else if (clazz.isAssignableFrom(double.class) || clazz.isAssignableFrom(Double.class)) {
+            return new FieldAbstract<Double>() {
+                @Override
+                public Double getData(Cursor cursor, int index) {
+                    return cursor.getDouble(index);
+                }
+            };
+        } else if (clazz.isAssignableFrom(float.class) || clazz.isAssignableFrom(Float.class)) {
+            return new FieldAbstract<Float>() {
+                @Override
+                public Float getData(Cursor cursor, int index) {
+                    return cursor.getFloat(index);
                 }
             };
         }

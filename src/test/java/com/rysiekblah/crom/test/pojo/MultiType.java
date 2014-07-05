@@ -21,23 +21,26 @@ public class MultiType {
     @Column
     private boolean boolData;
 
-//    @Column
-//    private Double doubleObjData;
-//    @Column
-//    private double doubleData;
-//
-//    @Column
-//    private Float floatObjData;
-//    @Column
-//    private float floatData;
-//
-//    @Column
-//    private Long londObjData;
-//    @Column
-//    private long longData;
-//
-//    @Column
-//    private String stringObjData;
+    @Column
+    private Double doubleObjData;
+    @Column
+    private double doubleData;
+
+    @Column
+    private Float floatObjData;
+    @Column
+    private float floatData;
+
+    @Column
+    private Long longObjData;
+    @Column
+    private long longData;
+
+    @Column
+    private String stringObjData;
+
+    @Column
+    private byte[] blobData;
 
 
     public Short getShortObjData() {
@@ -62,5 +65,37 @@ public class MultiType {
 
     public boolean isBoolData() {
         return boolData;
+    }
+
+    public Double getDoubleObjData() {
+        return doubleObjData;
+    }
+
+    public double getDoubleData() {
+        return doubleData;
+    }
+
+    public Float getFloatObjData() {
+        return floatObjData;
+    }
+
+    public float getFloatData() {
+        return floatData;
+    }
+
+    public Long getLondObjData() {
+        return longObjData;
+    }
+
+    public long getLongData() {
+        return longData;
+    }
+
+    public String getStringObjData() {
+        return stringObjData;
+    }
+
+    public byte[] getBlobData() {
+        return blobData;
     }
 }
