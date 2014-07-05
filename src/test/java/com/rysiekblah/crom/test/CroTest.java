@@ -4,9 +4,11 @@ import android.database.Cursor;
 
 import com.google.common.collect.Lists;
 import com.rysiekblah.crom.Cro;
+import com.rysiekblah.crom.CromException;
 import com.rysiekblah.crom.test.pojo.Car;
 import com.rysiekblah.crom.test.pojo.Employee;
 import com.rysiekblah.crom.test.pojo.MultiType;
+import com.rysiekblah.crom.test.pojo.UnsupportedTypes;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -14,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -95,6 +98,17 @@ public class CroTest {
         assertEquals(Long.valueOf(321), Long.valueOf(multiType.getLongData()));
         assertEquals("TESTDATA", multiType.getStringObjData());
         assertThat(multiType.getBlobData()).contains((byte)1, (byte)2, (byte)'A', (byte)' ');
+    }
+
+    @Test(expected = CromException.class)
+    public void testUnsupportedTypes() {
+        Cursor cursor = CursorBuilder.create(
+                new String[]{ "bigDecimal" },
+                new BigDecimal[]{ BigDecimal.ONE }
+        );
+        cursor.moveToFirst();
+        Cro cro = new Cro(UnsupportedTypes.class);
+        UnsupportedTypes unsupportedTypes = (UnsupportedTypes) cro.populate(cursor);
     }
 
 }

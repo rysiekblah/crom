@@ -2,10 +2,12 @@ package com.rysiekblah.crom;
 
 import android.database.Cursor;
 
+import com.google.common.collect.Maps;
 import com.rysiekblah.crom.annotation.Column;
 
 import java.lang.reflect.Field;
 import java.nio.DoubleBuffer;
+import java.util.Map;
 
 /**
  * Created by tomek on 4/28/14.
@@ -15,6 +17,25 @@ public class FieldDescriptor {
     private String name;
     private Class<?> type;
     private FieldAbstract fieldAbstract;
+    private final static Map<Class<?>, FieldAbstract<?>> fieldCache;
+
+    static {
+        fieldCache = Maps.newHashMap();
+        fieldCache.put(short.class, new ShortField());
+        fieldCache.put(Short.class, new ShortField());
+        fieldCache.put(long.class, new LongField());
+        fieldCache.put(Long.class, new LongField());
+        fieldCache.put(double.class, new DoubleField());
+        fieldCache.put(Double.class, new DoubleField());
+        fieldCache.put(float.class, new FloatField());
+        fieldCache.put(Float.class, new FloatField());
+        fieldCache.put(int.class, new IntegerField());
+        fieldCache.put(Integer.class, new IntegerField());
+        fieldCache.put(String.class, new StringField());
+        fieldCache.put(byte[].class, new BlobField());
+        fieldCache.put(boolean.class, new BooleanField());
+        fieldCache.put(Boolean.class, new BooleanField());
+    }
 
     public FieldDescriptor(Field field, Column column) {
         if (column.name().isEmpty()) {
@@ -23,7 +44,7 @@ public class FieldDescriptor {
             this.name = column.name();
         }
         type = field.getType();
-        fieldAbstract = createFieldAbstract(field.getType());
+        fieldAbstract = fieldCache.get(field.getType());
     }
 
     public String getName() {
@@ -38,87 +59,59 @@ public class FieldDescriptor {
         return fieldAbstract;
     }
 
-    // TODO: do rework
-    private FieldAbstract createFieldAbstract(Class<?> clazz) {
-        if (clazz.isAssignableFrom(String.class)) {
-            return new FieldAbstract<String>() {
-                @Override
-                public String getData(Cursor cursor, int index) {
-                    return cursor.getString(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(Integer.class)) {
-            return new FieldAbstract<Integer>() {
-                @Override
-                public Integer getData(Cursor cursor, int index) {
-                    return cursor.getInt(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(int.class)) {
-            return new FieldAbstract<Integer>() {
-                @Override
-                public Integer getData(Cursor cursor, int index) {
-                    return cursor.getInt(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(boolean.class)) {
-            return new FieldAbstract<Boolean>() {
-                @Override
-                public Boolean getData(Cursor cursor, int index) {
-                    String bl = cursor.getString(index);
-                    return bl.equals("true");
-                }
-            };
-        } else if (clazz.isAssignableFrom(Boolean.class)) {
-            return new FieldAbstract<Boolean>() {
-                @Override
-                public Boolean getData(Cursor cursor, int index) {
-                    return cursor.getString(index).equals("true");
-                }
-            };
-        } else if (clazz.isAssignableFrom(short.class)) {
-            return new FieldAbstract<Short>() {
-                @Override
-                public Short getData(Cursor cursor, int index) {
-                    return cursor.getShort(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(Short.class)) {
-            return new FieldAbstract<Short>() {
-                @Override
-                public Short getData(Cursor cursor, int index) {
-                    return cursor.getShort(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(byte[].class)) {
-            return new FieldAbstract<byte[]>() {
-                @Override
-                public byte[] getData(Cursor cursor, int index) {
-                    return cursor.getBlob(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(long.class) || clazz.isAssignableFrom(Long.class)) {
-            return new FieldAbstract<Long>() {
-                @Override
-                public Long getData(Cursor cursor, int index) {
-                    return cursor.getLong(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(double.class) || clazz.isAssignableFrom(Double.class)) {
-            return new FieldAbstract<Double>() {
-                @Override
-                public Double getData(Cursor cursor, int index) {
-                    return cursor.getDouble(index);
-                }
-            };
-        } else if (clazz.isAssignableFrom(float.class) || clazz.isAssignableFrom(Float.class)) {
-            return new FieldAbstract<Float>() {
-                @Override
-                public Float getData(Cursor cursor, int index) {
-                    return cursor.getFloat(index);
-                }
-            };
+    private static class ShortField extends FieldAbstract<Short> {
+        @Override
+        public Short getData(Cursor cursor, int index) {
+            return cursor.getShort(index);
         }
-        return null;
+    }
+
+    private static class LongField extends FieldAbstract<Long> {
+        @Override
+        public Long getData(Cursor cursor, int index) {
+            return cursor.getLong(index);
+        }
+    }
+
+    private static class DoubleField extends FieldAbstract<Double> {
+        @Override
+        public Double getData(Cursor cursor, int index) {
+            return cursor.getDouble(index);
+        }
+    }
+
+    private static class FloatField extends FieldAbstract<Float> {
+        @Override
+        public Float getData(Cursor cursor, int index) {
+            return cursor.getFloat(index);
+        }
+    }
+
+    private static class BooleanField extends FieldAbstract<Boolean> {
+        @Override
+        public Boolean getData(Cursor cursor, int index) {
+            return cursor.getString(index).equals("true");
+        }
+    }
+
+    private static class IntegerField extends FieldAbstract<Integer> {
+        @Override
+        public Integer getData(Cursor cursor, int index) {
+            return cursor.getInt(index);
+        }
+    }
+
+    private static class StringField extends FieldAbstract<String> {
+        @Override
+        public String getData(Cursor cursor, int index) {
+            return cursor.getString(index);
+        }
+    }
+
+    private static class BlobField extends FieldAbstract<byte[]> {
+        @Override
+        public byte[] getData(Cursor cursor, int index) {
+            return cursor.getBlob(index);
+        }
     }
 }
