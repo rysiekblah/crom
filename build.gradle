@@ -8,10 +8,6 @@ buildscript {
         }
         mavenCentral()
     }
-
-//    dependencies {
-//        classpath 'com.android.tools.build:gradle:0.11.+'
-//    }
 }
 
 allprojects {
@@ -34,7 +30,6 @@ dependencies {
     testCompile 'com.google.android:android:+'
     testCompile 'com.android.support:support-v4:19.0.1'
     testCompile 'org.robolectric:robolectric:2.+'
-
 }
 
 
