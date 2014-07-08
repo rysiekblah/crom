@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.google.common.collect.Lists;
+import com.rysiekblah.crom.ContractData;
 import com.rysiekblah.crom.CromLoader;
 import com.rysiekblah.crom.test.pojo.Employee;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
@@ -55,7 +56,7 @@ public class LoaderTest {
         when(resolver.query(any(Uri.class), any(String[].class), anyString(), any(String[].class), anyString())).thenReturn(cursor);
         when(context.getContentResolver()).thenReturn(resolver);
 
-        CromLoader<Employee> loader = new CromLoader<Employee>(context, null, null, null, null, null, Employee.class);
+        CromLoader<Employee> loader = new CromLoader<Employee>(context, new ContractData(null, null, null, null, null), Employee.class);
 
         List<Employee> employees = loader.loadInBackground();
 
