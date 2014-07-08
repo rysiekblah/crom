@@ -30,6 +30,7 @@ dependencies {
     testCompile 'com.google.android:android:+'
     testCompile 'com.android.support:support-v4:19.0.1'
     testCompile 'org.robolectric:robolectric:2.+'
+    testCompile 'org.mockito:mockito-all:1.9.5'
 }
 
 
