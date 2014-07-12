@@ -1,5 +1,6 @@
 package com.rysiekblah.crom;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.google.common.collect.ImmutableMap;
@@ -57,6 +58,14 @@ public class Crom {
         }
         cursor.close();
         return pojoList;
+    }
+
+    public <T> List<ContentValues> toContentValuesList(List<T> pojoList) {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
+
+    public <T> ContentValues toContentValues(T pojo) {
+        return getCro(pojo.getClass()).toContentValues(pojo);
     }
 
     @SuppressWarnings("unchecked")

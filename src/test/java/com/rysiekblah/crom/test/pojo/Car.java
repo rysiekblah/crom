@@ -19,6 +19,17 @@ public class Car {
     @Column
     private Integer milage;
 
+    public Car() {
+
+    }
+
+    public Car(String make, String model, int year, Integer milage) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.milage = milage;
+    }
+
     public String getMake() {
         return make;
     }

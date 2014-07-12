@@ -1,9 +1,11 @@
 package com.rysiekblah.crom;
 
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Build;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import com.rysiekblah.crom.annotation.Column;
 
@@ -20,15 +22,27 @@ public class Cro<T> {
 
     public Cro(Class<T> clazz) {
         this.clazz = clazz;
-        init();
-    }
-
-    private void init() {
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Column.class)) {
                 fields.put(field, obtainColumnName(field));
             }
         }
+    }
+
+    public <T> ContentValues toContentValues(T object) {
+        ContentValues contentValues = new ContentValues();
+        for (Map.Entry<Field, FieldDescriptor> fieldDescriptorEntry : fields.entrySet()) {
+            Field field = fieldDescriptorEntry.getKey();
+            field.setAccessible(true);
+
+            try {
+                FieldAbstract fieldAbstract = fieldDescriptorEntry.getValue().getFieldAbstract();
+                fieldAbstract.decorate(field, object, contentValues);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return contentValues;
     }
 
     public T populate(Cursor cursor) {

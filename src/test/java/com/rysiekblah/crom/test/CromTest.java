@@ -1,10 +1,12 @@
 package com.rysiekblah.crom.test;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.google.common.collect.Lists;
 import com.rysiekblah.crom.Crom;
 import com.rysiekblah.crom.test.pojo.Employee;
+import com.rysiekblah.crom.test.pojo.MultiType;
 import com.rysiekblah.crom.test.utils.CursorBuilder;
 
 import org.junit.Test;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by tomek on 6/27/14.
@@ -58,6 +61,59 @@ public class CromTest {
         assertThat(employees).hasSize(4)
                 .contains(tomek, ola, miki, magda);
 
+    }
+
+    @Test
+    public void testToContentValueeAllTypes() {
+        Short shortObjData = 1;
+        short shortData    = 2;
+        Integer intObjData = 3;
+        int intData        = 4;
+        Boolean boolObjData= true;
+        boolean boolData   = false;
+        Double doubleObjData = 1.2345;
+        double doubleData    = 2.3456;
+        Float floatObjData   = new Float(3.4567);
+        float floatData      = (float)4.5678;
+        Long longObjData    = new Long(5);
+        long longData       = (long)6;
+        String stringObjData = "qwerty";
+        byte[] blobData = new byte[] {1, 2, 'A', ' '};
+
+        MultiType multiType = new MultiType(
+                shortObjData, shortData, intObjData, intData, boolObjData, boolData, doubleObjData, doubleData, floatObjData, floatData,
+                longObjData, longData, stringObjData, blobData
+        );
+
+//        Cro cro = new Cro(MultiType.class);
+//        ContentValues cv = cro.toContentValues(multiType);
+
+        Crom crom = new Crom();
+
+        ContentValues cv = crom.toContentValues(multiType);
+
+        assertNotNull(cv);
+        assertEquals(1, cv.getAsShort("shortObjData").shortValue());
+        assertEquals(2, cv.getAsShort("shortData").shortValue());
+        assertEquals(3, cv.getAsInteger("intObjData").intValue());
+        assertEquals(4, cv.getAsInteger("intData").intValue());
+        assertEquals(true, cv.getAsBoolean("boolObjData"));
+        assertEquals(false, cv.getAsBoolean("boolData"));
+        assertEquals(Double.valueOf(1.2345), cv.getAsDouble("doubleObjData"));
+        assertEquals(Double.valueOf(2.3456), cv.getAsDouble("doubleData"));
+        assertEquals(Float.valueOf((float)3.4567), cv.getAsFloat("floatObjData"));
+        assertEquals(Float.valueOf((float)4.5678), cv.getAsFloat("floatData"));
+        assertEquals(Long.valueOf(5), cv.getAsLong("longObjData"));
+        assertEquals(Long.valueOf(6), cv.getAsLong("longData"));
+        assertEquals("qwerty", cv.getAsString("stringObjData"));
+        byte[] blob = cv.getAsByteArray("blobData");
+        assertThat(blob).contains((byte)1, (byte)2, (byte)'A', (byte)' ');
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testToContentValuesList() {
+        Crom crom = new Crom();
+        crom.toContentValuesList(null);
     }
 
 }
