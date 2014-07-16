@@ -85,9 +85,6 @@ public class CromTest {
                 longObjData, longData, stringObjData, blobData
         );
 
-//        Cro cro = new Cro(MultiType.class);
-//        ContentValues cv = cro.toContentValues(multiType);
-
         Crom crom = new Crom();
 
         ContentValues cv = crom.toContentValues(multiType);
@@ -110,10 +107,26 @@ public class CromTest {
         assertThat(blob).contains((byte)1, (byte)2, (byte)'A', (byte)' ');
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testToContentValuesList() {
+        Employee employee1 = new Employee("A", 1);
+        Employee employee2 = new Employee("B", 2);
+
+        List<Employee> employees = Lists.newArrayList();
+        employees.add(employee1);
+        employees.add(employee2);
+
         Crom crom = new Crom();
-        crom.toContentValuesList(null);
+        ContentValues[] values = crom.toContentValuesList(employees);
+
+        assertNotNull(values);
+        assertThat(values).hasSize(2);
+        assertEquals("A", values[0].getAsString("name"));
+        assertEquals(1, values[0].getAsInteger("salary").intValue());
+
+        assertEquals("B", values[1].getAsString("name"));
+        assertEquals(2, values[1].getAsInteger("salary").intValue());
+
     }
 
 }

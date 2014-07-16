@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,8 +61,14 @@ public class Crom {
         return pojoList;
     }
 
-    public <T> List<ContentValues> toContentValuesList(List<T> pojoList) {
-        throw new UnsupportedOperationException("not implemented yet");
+    public <T> ContentValues[] toContentValuesList(List<T> pojoList) {
+        List<ContentValues> values = Lists.newArrayList();
+        for (T pojo : pojoList) {
+            values.add(toContentValues(pojo));
+        }
+        ContentValues[] contentValueses = new ContentValues[pojoList.size()];
+        values.toArray(contentValueses);
+        return contentValueses;
     }
 
     public <T> ContentValues toContentValues(T pojo) {
