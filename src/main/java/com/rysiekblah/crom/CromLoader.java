@@ -2,7 +2,6 @@ package com.rysiekblah.crom;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.List;
 

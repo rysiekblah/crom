@@ -1,9 +1,7 @@
 package com.rysiekblah.crom;
 
-import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.os.Build;
 
 import com.google.common.collect.Maps;
 import com.rysiekblah.crom.annotation.Column;
@@ -11,9 +9,7 @@ import com.rysiekblah.crom.annotation.Embedded;
 import com.rysiekblah.crom.annotation.OneToMany;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -72,14 +68,8 @@ public class Cro<T> {
                 }
             }
             return obj;
-        } catch (InstantiationException e) {
-            throw new CromException("InstantiationException", e);
-        } catch (IllegalAccessException e) {
-            throw new CromException("IllegalAccessException", e);
-        } catch (NoSuchMethodException e) {
-            throw new CromException("NoSuchMethodException", e);
-        } catch (InvocationTargetException e) {
-            throw new CromException("InvocationTargetException");
+        } catch (Exception e) {
+            throw new CromException("Cursor to object population failed", e);
         }
 
     }
