@@ -47,6 +47,9 @@ public class Crom {
     }
 
     public <T> T cursorToPojo(Cursor cursor, Class<T> clazz) {
+        if (cursor.isAfterLast() || cursor.isClosed()) {
+            throw new CromException("Cursor is closed or invalid.");
+        }
         return getCro(clazz).populate(cursor);
     }
 
