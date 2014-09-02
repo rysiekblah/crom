@@ -24,6 +24,11 @@ Features
 | Conversion pojo to ContentValue      | toContentValues     |     YES       |
 | Convertion pojo list to ContentValue | toContentValuesList |     YES       |
 
+Annotations
+------------
+@Column
+@OneToMany
+@Embedded
 
 Examples:
 --------
