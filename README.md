@@ -26,9 +26,12 @@ Features
 
 Annotations
 ------------
-@Column
-@OneToMany
-@Embedded
+
+@Column - just let CROM know that this is a column representation
+
+@OneToMany - use it in case of joining tables. Note that only List type is supported for field with this annotation.
+
+@Embedded - not implemented yet. It will have JPA functionality.
 
 Examples:
 --------
