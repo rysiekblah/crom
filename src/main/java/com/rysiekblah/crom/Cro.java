@@ -61,6 +61,12 @@ public class Cro<T> {
                     List l = (List)ff.get(obj);
                     Method method = ff.getType().getDeclaredMethod("add", Object.class);
                     method.invoke(l, joinedObj);
+                    for (Map.Entry<Field, FieldDescriptor> entry : fieldStringEntry.getValue().getJoinedFields().entrySet()) {
+                        Field field1 = entry.getKey();
+                        field1.setAccessible(true);
+                        field1.set(joinedObj, assignValue(cursor, entry.getValue()));
+                    }
+
                 } else {
                     Field field = fieldStringEntry.getKey();
                     field.setAccessible(true);
