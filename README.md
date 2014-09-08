@@ -31,7 +31,7 @@ Annotations
 
 @OneToMany - use it in case of joining tables. Note that only List type is supported for field with this annotation.
 
-@Embedded - not implemented yet. It will have JPA functionality.
+@Embedded - not implemented yet.
 
 Examples:
 --------
