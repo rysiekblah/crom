@@ -29,7 +29,7 @@ Annotations
 
 @Column - just let CROM know that this is a column representation
 
-@OneToMany - use it in case of joining tables. Note that only List type is supported for field with this annotation.
+@OneToMany - not implemented yet. Use it in case of joining tables. Note that only List type is supported for field with this annotation.
 
 @Embedded - not implemented yet.
 
