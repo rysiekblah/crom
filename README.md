@@ -1,5 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/rysiekblah/crom/badge.svg?branch=master&service=github)](https://coveralls.io/github/rysiekblah/crom?branch=master)
-
 crom
 ====
 
