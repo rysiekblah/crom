@@ -42,7 +42,7 @@ public class Cro<T> {
 
             try {
                 FieldAbstract fieldAbstract = fieldDescriptorEntry.getValue().getFieldAbstract();
-                fieldAbstract.decorate(field, object, contentValues);
+                fieldAbstract.decorate(field, object, contentValues, fieldDescriptorEntry.getValue().getName());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -75,6 +75,8 @@ public class Cro<T> {
             }
             return obj;
         } catch (Exception e) {
+            //TODO: catch a.lang.IllegalAccessException: void com.cloudsimple.secondapp.db.Schema$UserTable.<init>() is not accessible from java.lang.Class<com.rysiekblah.crom.Cro>
+            // and add dest, that default constructor needed
             throw new CromException("Cursor to object population failed", e);
         }
 

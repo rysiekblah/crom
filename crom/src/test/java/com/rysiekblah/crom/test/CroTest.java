@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.google.common.collect.Lists;
+import com.rysiekblah.crom.BuildConfig;
 import com.rysiekblah.crom.Cro;
 import com.rysiekblah.crom.CromException;
 import com.rysiekblah.crom.test.pojo.Car;
@@ -14,14 +15,13 @@ import com.rysiekblah.crom.test.utils.CursorBuilder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-
-import static org.fest.assertions.Assertions.*;
-
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -30,7 +30,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by tomek on 6/21/14.
  */
-@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
+@RunWith(RobolectricGradleTestRunner.class)
 public class CroTest {
 
     @Test

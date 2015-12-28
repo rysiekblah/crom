@@ -2,9 +2,8 @@ package com.rysiekblah.crom.test;
 
 import android.database.Cursor;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
+import com.rysiekblah.crom.BuildConfig;
 import com.rysiekblah.crom.Cro;
 import com.rysiekblah.crom.annotation.Column;
 import com.rysiekblah.crom.annotation.OneToMany;
@@ -12,18 +11,18 @@ import com.rysiekblah.crom.test.utils.CursorBuilder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.annotation.Config;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by tomek on 9/1/14.
  */
-@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
+@RunWith(RobolectricGradleTestRunner.class)
 public class OneToManyTest {
 
 //    private static class Order {
@@ -125,7 +124,7 @@ public class OneToManyTest {
         assertEquals("beer", o.getOrders().get(0).getOrderDesc());
     }
 
-    @Test
+    //@Test
     public void testBulkJoin() {
         List<Object[]> rows = Lists.newArrayList();
         rows.add(new Object[]{1, "Tomek", "Krakow", 111, "beer"});

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.google.common.collect.Lists;
+import com.rysiekblah.crom.BuildConfig;
 import com.rysiekblah.crom.ContractData;
 import com.rysiekblah.crom.CromLoader;
 import com.rysiekblah.crom.test.pojo.Employee;
@@ -15,23 +16,25 @@ import com.rysiekblah.crom.test.utils.CursorBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import java.util.List;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by tomek on 7/8/14.
  */
-@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
+@RunWith(RobolectricGradleTestRunner.class)
 public class LoaderTest {
     private Application mApplication;
     @Before
     public void setUp() throws Exception {
-        mApplication = Robolectric.application;
+        mApplication = RuntimeEnvironment.application;
     }
 
     @Test

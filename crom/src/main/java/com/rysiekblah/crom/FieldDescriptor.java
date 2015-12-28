@@ -1,7 +1,6 @@
 package com.rysiekblah.crom;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.rysiekblah.crom.annotation.Column;
 import com.rysiekblah.crom.annotation.Embedded;

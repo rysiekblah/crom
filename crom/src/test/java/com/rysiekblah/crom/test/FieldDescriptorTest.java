@@ -6,16 +6,15 @@ import com.rysiekblah.crom.test.pojo.Car;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by tomek on 7/24/14.
  */
-@RunWith(RobolectricTestRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class FieldDescriptorTest {
 
     private static class DummyClass {

@@ -16,8 +16,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (Short) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (Short) field.get(object));
         }
     }
 
@@ -28,8 +28,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (Long) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (Long) field.get(object));
         }
     }
 
@@ -40,8 +40,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (Double) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (Double) field.get(object));
         }
     }
 
@@ -52,8 +52,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (Float) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (Float) field.get(object));
         }
     }
 
@@ -64,8 +64,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (Boolean) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (Boolean) field.get(object));
         }
     }
 
@@ -76,8 +76,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (Integer) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (Integer) field.get(object));
         }
     }
 
@@ -88,8 +88,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (String) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (String) field.get(object));
         }
     }
 
@@ -100,8 +100,8 @@ public class FieldTypes {
         }
 
         @Override
-        public <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException {
-            contentValues.put(field.getName(), (byte[]) field.get(object));
+        public <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException {
+            contentValues.put(fieldName, (byte[]) field.get(object));
         }
     }
 }

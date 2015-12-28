@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.google.common.collect.Lists;
+import com.rysiekblah.crom.BuildConfig;
 import com.rysiekblah.crom.Crom;
 import com.rysiekblah.crom.test.pojo.Employee;
 import com.rysiekblah.crom.test.pojo.MultiType;
@@ -11,18 +12,20 @@ import com.rysiekblah.crom.test.utils.CursorBuilder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.List;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by tomek on 6/27/14.
  */
-@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
+@RunWith(RobolectricGradleTestRunner.class)
 public class CromTest {
 
     @Test
@@ -122,10 +125,10 @@ public class CromTest {
         assertNotNull(values);
         assertThat(values).hasSize(2);
         assertEquals("A", values[0].getAsString("name"));
-        assertEquals(1, values[0].getAsInteger("salary").intValue());
+        assertEquals(1, values[0].getAsInteger("salaries").intValue());
 
         assertEquals("B", values[1].getAsString("name"));
-        assertEquals(2, values[1].getAsInteger("salary").intValue());
+        assertEquals(2, values[1].getAsInteger("salaries").intValue());
 
     }
 

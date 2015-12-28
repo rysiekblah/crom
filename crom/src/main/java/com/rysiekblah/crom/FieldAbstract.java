@@ -11,6 +11,6 @@ import java.lang.reflect.Field;
 public abstract class FieldAbstract<T> {
     public abstract T getData(Cursor cursor, int index);
 
-    public abstract <D> void decorate(Field field, D object, ContentValues contentValues) throws IllegalAccessException;
+    public abstract <D> void decorate(Field field, D object, ContentValues contentValues, String fieldName) throws IllegalAccessException;
 
 }
