@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/rysiekblah/crom.svg?branch=master)](https://travis-ci.org/rysiekblah/crom)   [![Coverage Status](https://coveralls.io/repos/rysiekblah/crom/badge.svg?branch=master&service=github)](https://coveralls.io/github/rysiekblah/crom?branch=master)
+
 crom
 ====
 
@@ -26,9 +29,12 @@ Features
 
 Annotations
 ------------
-@Column
-@OneToMany
-@Embedded
+
+@Column - just let CROM know that this is a column representation
+
+@OneToMany - not implemented yet. Use it in case of joining tables. Note that only List type is supported for field with this annotation.
+
+@Embedded - not implemented yet.
 
 Examples:
 --------
