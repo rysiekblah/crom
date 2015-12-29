@@ -17,17 +17,17 @@
 # http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
 # org.gradle.parallel=true
 
-VERSION_NAME=1.0.0
-VERSION_CODE=1
-GROUP=com.rysiekblah.crom
+VERSION_NAME=0.6.2
+VERSION_CODE=8
+GROUP=org.chalup.microorm
 
 POM_DESCRIPTION=A library for creating POJOs from Android Cursors and converting them back into ContentValues.
-POM_URL=https://github.com/rysiekblah/crom
-POM_SCM_URL=https://github.com/rysiekblah/crom
-POM_SCM_CONNECTION=scm:git:git://github.com/rysiekblah/crom.git
-POM_SCM_DEV_CONNECTION=scm:git:ssh://git@github.com/rysiekblah/crom.git
+POM_URL=https://github.com/chalup/microorm
+POM_SCM_URL=https://github.com/chalup/microorm
+POM_SCM_CONNECTION=scm:git:git://github.com/chalup/microorm.git
+POM_SCM_DEV_CONNECTION=scm:git:ssh://git@github.com/chalup/microorm.git
 POM_LICENCE_NAME=The Apache Software License, Version 2.0
-POM_LICENCE_URL=https://github.com/rysiekblah/crom/blob/master/LICENSE.txt
+POM_LICENCE_URL=https://github.com/chalup/microorm/blob/master/LICENSE.txt
 POM_LICENCE_DIST=repo
-POM_DEVELOPER_ID=rysiekblah
-POM_DEVELOPER_NAME=Tomasz Kozlowski
+POM_DEVELOPER_ID=chalup
+POM_DEVELOPER_NAME=Jerzy Chalupski
