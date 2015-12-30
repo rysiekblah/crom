@@ -37,9 +37,9 @@ dependencies {
 
 apply from: './gradle-mvn-push.gradle'
 
-project.afterEvaluate {
-    project.tasks.findByName("test").getTaskDependencies().getDependencies().each { task ->
-        task.jvmArgs('-noverify')
-    }
-}
+//project.afterEvaluate {
+//    project.tasks.findByName("test").getTaskDependencies().getDependencies().each { task ->
+//        task.jvmArgs('-noverify')
+//    }
+//}
 
